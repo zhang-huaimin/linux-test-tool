@@ -1,0 +1,20 @@
+devices:
+    - device:
+        alias: linux1
+        ip: 192.168.50.6
+        connect:
+            alias: ssh0
+            method: ssh
+            hostname: 192.168.50.6
+            port: 22
+            username: abcd
+            password: abcd@1234@
+    - device:
+        alias: linux2
+        ip: 192.168.50.6
+        connect:
+            method: ssh
+            hostname: 192.168.50.6
+            port: 22
+            username: abcd
+            password: abcd@1234@

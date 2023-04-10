@@ -1,0 +1,5 @@
+allure-results/
+log/
+*.pyc
+__pycache__/
+.pytest_cache
