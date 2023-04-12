@@ -4,17 +4,18 @@ Common API for connect with linux.
 from abc import ABC, abstractmethod
 from common.re import is_match
 import eventlet
+from env.connection.keyboard import key_escape
 
 
 class Connect(ABC):
     def __init__(self):
         pass
 
-    def set_alias(self, alias: str):
+    def set_alias(self, alias: str) -> str:
         self.alias = alias
         return self.get_alias()
 
-    def get_alias(self):
+    def get_alias(self) -> str:
         return self.alias
 
     def ask(self, cmd: str, pass_flag, time=5, error_info=None, is_check=True, fail_flag=None):
@@ -25,8 +26,7 @@ class Connect(ABC):
         if is_check:
             if timeout, then test failed, print 'timeout' and error_info.
             if get fail_flag, then stop recv, test falied, and print error_info.
-
-        if !is_check:
+        else:
             if timeout, print 'timeout' and error_info, return False.
             if get fail_flag, then stop recv, and print error_info, return False.
         
@@ -35,7 +35,7 @@ class Connect(ABC):
             data: str.
         """
         self.recv()
-        self.send_with_line_break(cmd)
+        self.send_LF(cmd)
         status, data = self.recv_check(pass_flag, time, error_info, is_check, fail_flag)
         return status, data
 
@@ -64,11 +64,21 @@ class Connect(ABC):
 
         return status, data
     
-    def send_with_line_break(self, cmd: str):
+    def send_LF(self, cmd=''):
+        """Send cmd with LF"""
         self.send(cmd + '\n')
 
+    def send_key(self, key: str):
+        """Always you want to simulated keyboard, Expecially ctrl + c.
+        Input: key. Find it in map key_escape.
+        """
+        self.send(key_escape[key])
+        
+    def ctrl_c(self):
+        self.send_key('ctrl_c')
+
     @abstractmethod
-    def recv(self, time=0.1):
+    def recv(self, time=0.1) -> str:
         """Recieve data from device within fixed time.
         
         Return: 
@@ -84,10 +94,3 @@ class Connect(ABC):
     def close(self):
         """Close current connect.
         """
-
-
-def ConnectRepo():
-    def __init__():
-        pass
-
-

@@ -1,5 +1,5 @@
 import pytest
-from environment.devices.device import DevicePool
+from env.devices.device import DevicePool
 
 def pytest_addoption(parser):
     parser.addoption(

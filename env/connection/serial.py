@@ -1,7 +1,7 @@
 """
 Connect with linux by serial.
 """
-from environment.connection.connect import Connect
+from env.connection.connect import Connect
 from time import sleep
 import serial
 
@@ -19,4 +19,4 @@ class Serial(Connect):
         self.serial.write(cmd.encode('UTF-8'))
 
     def close(self):
-        self.clo
+        self.close()

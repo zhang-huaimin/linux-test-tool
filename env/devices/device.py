@@ -1,10 +1,10 @@
-from environment.connection.connect import Connect
-from environment.connection import ConnectFactory
+from env.connection.connect import Connect
+from env.connection import ConnectFactory, shell_sample
 from common.file_parser import YamlParser
 from queue import Queue
 
 
-class Device(object):
+class DeviceModel(object):
     def __init__(self):
         self.cons = []
         pass
@@ -20,19 +20,38 @@ class Device(object):
         self.cons.remove(con)
 
 
+class Server(DeviceModel):
+    # TODO: Device need talk with linux servers for resource.
+    pass
+
+
+class Device(DeviceModel):
+    def __init__(self):
+        super().__init__()
+        self.set_i()
+        self.servers = {}
+
+    def set_i(self):
+        """I am ltt's server.
+        Can exec cmd which from ltt's testcases in ltt's server.
+        """
+        self.i = Server()
+        self.i.add_con(ConnectFactory().create(shell_sample))
+
+    def add_server():
+        pass
+
+
 class DevicePool(object):
     def __init__(self, conf_file):
         self.pool = Queue()
         parser = DeviceYamlParser(conf_file)
         for conf in parser.yiled_dev_conf():
-
             device = Device()
-
             device.add_con(ConnectFactory().create(conf))
-
             device.set_alias(conf['alias'])
-
             self.pool.put(device)
+        pass
 
     def put(self, device: Device):
         self.pool.put(device)
@@ -44,7 +63,7 @@ class DevicePool(object):
 class DeviceYamlParser(YamlParser):
     def get_devs_conf(self):
         self.devs = self.conf['devices']
-        # TODO. 记录devs到日志中
+        # TODO. log devs
         return self.devs
 
     def yiled_dev_conf(self):

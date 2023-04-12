@@ -1,7 +1,7 @@
 """
 Connect with linux by ssh.
 """
-from environment.connection.connect import Connect
+from env.connection.connect import Connect
 from time import sleep
 import paramiko
 
@@ -15,7 +15,7 @@ class Ssh(Connect):
         self.channel.setblocking = 0
         self.channel.settimeout = 1
 
-    def recv(self, time=0.1):
+    def recv(self, time=0.1) -> str:
         sleep(time)
 
         if self.channel.recv_ready():
@@ -29,5 +29,5 @@ class Ssh(Connect):
         self.channel.send(cmd)
 
     def close(self):
-        self.ssh.close()
         self.channel.close()
+        self.ssh.close()
