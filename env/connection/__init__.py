@@ -3,9 +3,7 @@ from env.connection.serial import Serial
 from env.connection.shell import Shell
 
 
-shell_sample = {
-    'type': 'shell'
-}
+shell_sample = {'type': 'shell'}
 
 
 class ConnectFactory(object):

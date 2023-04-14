@@ -49,14 +49,14 @@ class Device(DeviceModel):
         i_conf = self.conf.copy()
         i_conf['alias'] = '{}-i'.format(self.alias)
         self.i = Server(i_conf)
-        self.i.add_con(ConnectFactory.create(shell_sample,
-                                               self.i.log))
+        self.i.add_con(ConnectFactory.create(shell_sample, self.i.log))
 
     def add_server(self):
         pass
 
     def set_bsp(self):
         self.bsp = BspFactory.create(self.conf['bsp'], self)
+
 
 class DevicePool(object):
     def __init__(self, conf_file):

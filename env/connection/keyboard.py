@@ -12,7 +12,4 @@ key_escape = {
 }
 
 # reverse dict
-rev_key_escape = dict(zip(
-    key_escape.values(),
-    key_escape.keys()
-))
+rev_key_escape = dict(zip(key_escape.values(), key_escape.keys()))

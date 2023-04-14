@@ -9,6 +9,7 @@ from queue import Queue
 from env.connection.connect import Connect
 from env.connection.keyboard import rev_key_escape
 
+
 class Shell(Connect):
     def __init__(self):
         self._shell = _Shell()
@@ -35,11 +36,14 @@ class _Shell(object):
             while not self.in_buf.empty():
                 cmd = self.in_buf.get() + cmd
 
-            self.subproc = subprocess.Popen(cmd, shell=True, \
-                            stdin=subprocess.PIPE, \
-                            stdout=subprocess.PIPE, \
-                            stderr=subprocess.PIPE, \
-                            encoding="UTF-8")
+            self.subproc = subprocess.Popen(
+                cmd,
+                shell=True,
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                encoding="UTF-8",
+            )
         else:
             self.in_buf.put(cmd)
 

@@ -8,7 +8,9 @@ import serial
 
 class Serial(Connect):
     def __init__(self, conf):
-        self.serial = serial.Serial(port=conf['port'], baudrate=conf['baudrate'], timeout=0)
+        self.serial = serial.Serial(
+            port=conf['port'], baudrate=conf['baudrate'], timeout=0
+        )
         self.serial.flush()
 
     def recv(self, time=0.1):

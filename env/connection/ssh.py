@@ -10,7 +10,12 @@ class Ssh(Connect):
     def __init__(self, conf):
         self.ssh = paramiko.SSHClient()
         self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        self.ssh.connect(hostname=conf['hostname'], port=int(conf['port']), username=conf['username'], password=conf['password'])
+        self.ssh.connect(
+            hostname=conf['hostname'],
+            port=int(conf['port']),
+            username=conf['username'],
+            password=conf['password'],
+        )
         self.channel = self.ssh.invoke_shell()
         self.channel.setblocking = 0
         self.channel.settimeout = 1
