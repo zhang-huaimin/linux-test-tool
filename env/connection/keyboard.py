@@ -11,7 +11,7 @@ key_escape = {
     'ctrl_d': chr(4),
 }
 
-# reverse
+# reverse dict
 rev_key_escape = dict(zip(
     key_escape.values(),
     key_escape.keys()

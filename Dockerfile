@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND nointeractive
 RUN apt-get update; \
 	apt-get install -y \
         python3 \
-        python3-pip \ 
+        python3-pip \
         socat; \
     pip3 install \
         pytest \
@@ -29,4 +29,3 @@ RUN apt-get update; \
 #     ln -s `pwd`/allure-${ALLURE_VERSION}/bin/allure /usr/bin/allure
 
 COPY ./ /root/ltt
-ENTRYPOINT ["cd", "/root/ltt"]

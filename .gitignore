@@ -1,5 +1,9 @@
 allure-results/
 log/
+*.log
 *.pyc
 __pycache__/
 .pytest_cache
+result*/
+report*/
+Test.py

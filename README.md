@@ -1,15 +1,15 @@
 Linux Test Tool
 ===============
-# Introduction
+## Introduction
 Linux Test Tool is a generic open source automation tool based on pytest for linux device test.<br>
-It's based on device_pool to run testcases quickly. 
-# Installation
+It's based on device_pool to run testcases quickly.
+## Installation
 Build a docker image to use it, or install python package(found in Dockerfile) manually.
 ```
 docker build -t test:test .
 ```
-# Example
-## one testcase
+## Example
+### one testcase
 Write case down in testcases/ or it's sub dir.<br>
 eg: testcases/mm/mm_info_test.py
 ```

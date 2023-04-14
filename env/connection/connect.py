@@ -5,11 +5,15 @@ from abc import ABC, abstractmethod
 from common.re import is_match
 import eventlet
 from env.connection.keyboard import key_escape
+from logging import Logger
 
 
 class Connect(ABC):
     def __init__(self):
         pass
+
+    def set_log(self, log: Logger):
+        self.log = log
 
     def set_alias(self, alias: str) -> str:
         self.alias = alias
@@ -20,7 +24,7 @@ class Connect(ABC):
 
     def ask(self, cmd: str, pass_flag, time=5, error_info=None, is_check=True, fail_flag=None):
         """Send cmd and recv message within fixed time(sec, min=0.1s) and check.
-    
+
         if get pass_flag, then stop recv, return True.
 
         if is_check:
@@ -29,8 +33,8 @@ class Connect(ABC):
         else:
             if timeout, print 'timeout' and error_info, return False.
             if get fail_flag, then stop recv, and print error_info, return False.
-        
-        Return: 
+
+        Return:
             status: bool.
             data: str.
         """
@@ -55,7 +59,7 @@ class Connect(ABC):
             # TODO: log
             print(error_info)
 
-        print("is_pass:{}, is_fail:{}\ndata: {}".format(is_pass, is_fail, data))
+        self.log.info("status: {}, data: {}".format(status, data))
 
         if (is_check):
             assert status == True
@@ -63,7 +67,7 @@ class Connect(ABC):
         self.recv()
 
         return status, data
-    
+
     def send_LF(self, cmd=''):
         """Send cmd with LF"""
         self.send(cmd + '\n')
@@ -73,15 +77,15 @@ class Connect(ABC):
         Input: key. Find it in map key_escape.
         """
         self.send(key_escape[key])
-        
+
     def ctrl_c(self):
         self.send_key('ctrl_c')
 
     @abstractmethod
     def recv(self, time=0.1) -> str:
         """Recieve data from device within fixed time.
-        
-        Return: 
+
+        Return:
             data: str. The data should be decoded by UTF8.
         """
 

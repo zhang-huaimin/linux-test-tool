@@ -1,23 +1,26 @@
-from env.connection.connect import Connect
 from env.connection.ssh import Ssh
 from env.connection.serial import Serial
 from env.connection.shell import Shell
 
 
 shell_sample = {
-    'connect': {'method': 'shell'}
+    'type': 'shell'
 }
 
+
 class ConnectFactory(object):
-    def create(self, conf):
-        connect_conf = conf['connect']
+    @classmethod
+    def create(self, con_conf, log):
+        con_type = con_conf['type'].lower()
         con = None
 
-        if connect_conf['method'] == 'ssh':
-            con = Ssh(connect_conf)
-        elif connect_conf['method'] == 'serial':
-            con = Serial(connect_conf)
-        elif connect_conf['method'] == 'shell':
+        if con_type == 'ssh':
+            con = Ssh(con_conf)
+        elif con_type == 'serial':
+            con = Serial(con_conf)
+        elif con_type == 'shell':
             con = Shell()
+
+        con.set_log(log)
 
         return con
